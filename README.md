@@ -63,15 +63,3 @@ Essas tecnologias permitem um desenvolvimento ágil, com fácil teste em disposi
 * Sincronização em nuvem
 * Personalização avançada da interface
 * Possível publicação nas lojas de aplicativos
-
----
-
-## 🤝 Contribuição
-
-Este é um projeto pessoal, mas sugestões e ideias são sempre bem-vindas.
-
----
-
-## 📄 Licença
-
-A definir.
