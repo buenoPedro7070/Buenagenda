@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { 
-  StyleSheet, 
-  Text, 
-  View, 
-  TouchableOpacity, 
-  Modal, 
-  TextInput, 
-  ScrollView, 
-  Pressable 
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Modal,
+  TextInput,
+  ScrollView,
+  Pressable
 } from 'react-native';
-import Checkbox from 'expo-checkbox';
 import { Ionicons } from '@expo/vector-icons';
+import Card from './src/components/Card';
 
 export default function App() {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'Compromisso 1', completed: false },
-    { id: 2, text: 'Compromisso 2', completed: false },
-    { id: 3, text: 'Compromisso 3', completed: false },
-    { id: 4, text: 'Compromisso 4', completed: false },
-  ]);
+  const [tasks, setTasks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [newTaskText, setNewTaskText] = useState('');
 
   const toggleTask = (id) => {
-    setTasks(tasks.map(task => 
+    setTasks(tasks.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task
     ));
   };
@@ -44,22 +39,12 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Buenagenda</Text>
-      
+
       <ScrollView style={styles.scrollContainer} contentContainerStyle={styles.section}>
         <Text style={styles.sectionTitle}>Compromissos de hoje</Text>
-        
+
         {tasks.map((task) => (
-          <View key={task.id} style={styles.card}>
-            <Checkbox
-              style={styles.checkbox}
-              value={task.completed}
-              onValueChange={() => toggleTask(task.id)}
-              color={task.completed ? '#26550bff' : undefined}
-            />
-            <Text style={[styles.cardContent, task.completed && styles.completedText]}>
-              {task.text}
-            </Text>
-          </View>
+          <Card key={task.id} task={task} toggleTask={toggleTask} />
         ))}
       </ScrollView>
 
@@ -73,7 +58,7 @@ export default function App() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
             <Text style={styles.modalTitle}>Nova Tarefa</Text>
-            
+
             <TextInput
               style={styles.input}
               placeholder="O que você precisa fazer?"
@@ -83,15 +68,15 @@ export default function App() {
             />
 
             <View style={styles.modalButtons}>
-              <TouchableOpacity 
-                style={[styles.button, styles.buttonCancel]} 
+              <TouchableOpacity
+                style={[styles.button, styles.buttonCancel]}
                 onPress={() => setModalVisible(false)}
               >
                 <Text style={styles.buttonTextCancel}>Cancelar</Text>
               </TouchableOpacity>
-              
-              <TouchableOpacity 
-                style={[styles.button, styles.buttonSave]} 
+
+              <TouchableOpacity
+                style={[styles.button, styles.buttonSave]}
                 onPress={addTask}
               >
                 <Text style={styles.buttonTextSave}>Salvar</Text>
@@ -102,8 +87,8 @@ export default function App() {
       </Modal>
 
       {/* Botão Flutuante (FAB) */}
-      <TouchableOpacity 
-        style={styles.fab} 
+      <TouchableOpacity
+        style={styles.fab}
         onPress={() => setModalVisible(true)}
         activeOpacity={0.7}
       >
